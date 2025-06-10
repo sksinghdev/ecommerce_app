@@ -1,0 +1,20 @@
+name: my_ecommapp 
+
+packages:
+  - 'features/**' 
+  
+  
+
+command: 
+  bootstrap:
+    runPubGetInParallel: false
+
+scripts:
+  
+  pub_get_all:
+    run: |
+      for package in $(melos list --long --dir); do
+        echo "Running pub get in $package"
+        (cd "$package" && flutter pub get)
+      done
+    description: Run flutter pub get in all packages.
