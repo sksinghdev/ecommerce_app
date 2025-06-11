@@ -1,10 +1,14 @@
+import 'package:ecommerce_app/src/application/di/service_locator.dart';
+import 'package:ecommerce_app/src/application/router/app_router.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter/widgets.dart';
 import 'src/application/di/injection_container.dart' as di;
-import 'package:common/presentation/bloc/auth_cubit.dart';
+final _appRouter =  AppRouter();
 void main() async{
-  WidgetsFlutterBinding.ensureInitialized();
+   WidgetsFlutterBinding.ensureInitialized();
+  
   await _registerDependencies();
+  setupLocator();
   runApp(const MyApp());
 }
 
@@ -18,14 +22,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Santi Bank',
-      theme: ThemeData(
-       
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home:  Text('santi'),
+    return  MaterialApp.router(routerConfig: _appRouter.config(),
+   
+            debugShowCheckedModeBanner: false,
+            title: 'E-Commerce App',
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+            ),
+    
+    
     );
   }
 }

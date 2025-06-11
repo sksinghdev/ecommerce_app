@@ -1,22 +1,31 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/service/network_service.dart';
-  
-abstract class NetworkState {}
-class NetworkInitial extends NetworkState {}
-class NetworkConnected extends NetworkState {}
-class NetworkDisconnected extends NetworkState {}
+    
 
-class NetworkCubit extends Cubit<NetworkState> {
-  final NetworkService _service;
-  NetworkCubit(this._service) : super(NetworkInitial());
+enum NetworkStatus { connected, disconnected }
 
-  Future<void> checkConnection() async {
-    final isConnected = await _service.hasConnection();
-    if (isConnected) {
-      emit(NetworkConnected());
+class ConnectivityCubit extends Cubit<NetworkStatus> {
+  final Connectivity _connectivity;
+
+  ConnectivityCubit(this._connectivity) : super(NetworkStatus.connected) {
+    _initConnectivity();
+    _connectivity.onConnectivityChanged.listen((result) {
+      _emitStatus(result);
+    });
+  }
+
+  void _initConnectivity() async {
+final result = await _connectivity.checkConnectivity();
+    _emitStatus(result);
+  }
+
+  void _emitStatus(List<ConnectivityResult>  result) {
+    
+    if (result.contains(ConnectivityResult.none) || result.contains(ConnectivityResult.bluetooth)) {
+      emit(NetworkStatus.disconnected);
     } else {
-      emit(NetworkDisconnected());
+      emit(NetworkStatus.connected);
     }
   }
 }

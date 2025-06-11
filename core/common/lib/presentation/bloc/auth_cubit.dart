@@ -1,55 +1,35 @@
- import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../data/service/firebase_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../data/models/user_model.dart';
+import '../../data/repository/auth_repository.dart';
 import 'auth_state.dart';
- 
-
 
 class AuthCubit extends Cubit<AuthState> {
-  final FirebaseService _service;
-  AuthCubit(this._service) : super(AuthInitial());
+  final AuthRepository _authRepository;
 
-  void checkAuthStatus() {
-    final user = _service.currentUser;
-    if (user != null) {
-      emit(Authenticated());
-    } else {
-      emit(Unauthenticated());
-    }
-  }
+  AuthCubit(this._authRepository) : super(AuthInitial());
 
-  Future<void> signIn(String email, String password) async {
+  Future<void> loginWithEmail(String email, String password) async {
     emit(AuthLoading());
     try {
-      await _service.signInWithEmail(email, password);
-      emit(Authenticated());
+      final user = await _authRepository.signInWithEmail(email, password);
+      emit(Authenticated(UserModel.fromFirebaseUser(user!)));
     } catch (e) {
-      emit(AuthFailure(e.toString()));
+      emit(Unauthenticated(message: e.toString()));
     }
   }
 
-  Future<void> signUp(String email, String password) async {
+  Future<void> loginWithGoogle() async {
     emit(AuthLoading());
     try {
-      await _service.signUpWithEmail(email, password);
-      emit(Authenticated());
+      final user = await _authRepository.signInWithGoogle();
+      emit(Authenticated(UserModel.fromFirebaseUser(user!)));
     } catch (e) {
-      emit(AuthFailure(e.toString()));
+      emit(Unauthenticated(message: e.toString()));
     }
   }
 
-  Future<void> signInWithGoogle() async {
-    emit(AuthLoading());
-    try {
-      await _service.signInWithGoogle();
-      emit(Authenticated());
-    } catch (e) {
-      emit(AuthFailure(e.toString()));
-    }
-  }
-
-  Future<void> signOut() async {
-    await _service.signOut();
+  Future<void> logout() async {
+    await _authRepository.signOut();
     emit(Unauthenticated());
   }
 }
