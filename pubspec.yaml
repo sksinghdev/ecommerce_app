@@ -13,6 +13,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
 
   authentication:
     path: features/authentication
@@ -20,10 +21,11 @@ dependencies:
     path: features/product_cart
   product_listing:
     path: features/product_listing
+  common:
+    path: core/common
 
-
-   
   cupertino_icons: ^1.0.8
+  build_runner: ^2.4.8
 
 dev_dependencies:
   flutter_test:

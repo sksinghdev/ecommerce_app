@@ -2,6 +2,7 @@ name: my_ecommapp
 
 packages:
   - 'features/**' 
+  - 'core/**' 
   
   
 

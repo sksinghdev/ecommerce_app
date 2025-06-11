@@ -1,0 +1,85 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "ecommerce_app",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "ecommerce_app (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "ecommerce_app (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "authentication",
+            "cwd": "features/authentication",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "authentication (profile mode)",
+            "cwd": "features/authentication",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "authentication (release mode)",
+            "cwd": "features/authentication",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "product_cart",
+            "cwd": "features/product_cart",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "product_cart (profile mode)",
+            "cwd": "features/product_cart",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "product_cart (release mode)",
+            "cwd": "features/product_cart",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "product_listing",
+            "cwd": "features/product_listing",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "product_listing (profile mode)",
+            "cwd": "features/product_listing",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "product_listing (release mode)",
+            "cwd": "features/product_listing",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
