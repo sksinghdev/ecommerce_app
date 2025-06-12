@@ -36,10 +36,10 @@ packages:
     dependency: transitive
     description:
       name: auto_route
-      sha256: eb33554581a0a4aa7e6da0f13a44291a55bf71359012f1d9feb41634ff908ff8
+      sha256: bb673104dbdc22667d01ec668df3d2a358b6e3da481428eeb1151933cfc1a7d6
       url: "https://pub.dev"
     source: hosted
-    version: "7.9.2"
+    version: "9.2.0"
   bloc:
     dependency: transitive
     description:
@@ -247,7 +247,7 @@ packages:
     source: hosted
     version: "7.7.0"
   google_fonts:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: google_fonts
       sha256: b1ac0fe2832c9cc95e5e88b57d627c5e68c223b9657f4b96e1487aa9098c7b82

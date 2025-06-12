@@ -14,11 +14,12 @@ dependencies:
   flutter:
     sdk: flutter 
   cupertino_icons: ^1.0.8
-  auto_route: ^7.2.0 
+  auto_route: ^9.0.0 
   google_fonts: ^6.2.1  
   ecommerce_app:
     path: ../../
-
+  common:
+    path: ../../core/common
 
 dev_dependencies:
   flutter_test:
@@ -26,7 +27,7 @@ dev_dependencies:
 
   
   flutter_lints: ^5.0.0
-  auto_route_generator: ^7.1.1
+  auto_route_generator: ^9.0.0
   build_runner: ^2.4.4
 
  
