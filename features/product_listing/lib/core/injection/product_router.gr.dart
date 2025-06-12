@@ -1,4 +1,3 @@
-// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -14,7 +13,10 @@ part of 'product_router.dart';
 /// [ProductsPage]
 class ProductsRoute extends PageRouteInfo<void> {
   const ProductsRoute({List<PageRouteInfo>? children})
-    : super(ProductsRoute.name, initialChildren: children);
+      : super(
+          ProductsRoute.name,
+          initialChildren: children,
+        );
 
   static const String name = 'ProductsRoute';
 

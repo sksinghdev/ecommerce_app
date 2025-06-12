@@ -21,6 +21,8 @@ dependencies:
     path: ../../
   common:
     path: ../../core/common
+  product_cart:
+    path: ../../features/product_cart 
 
 dev_dependencies:
   flutter_test:

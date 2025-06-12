@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:common/common.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:product_cart/core/injection/cart_router.gr.dart';
+ import 'package:shimmer/shimmer.dart';
 import 'package:product_listing/presentation/bloc/product_cubit.dart';
 
 class ProductListPage extends StatelessWidget {
@@ -10,7 +12,11 @@ class ProductListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocConsumer<ProductCubit, ProductState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if(state is ProductClick){
+            context.navigateTo(ProductCarts(pos: state.pos,products: state.products,));
+          }
+        },
         builder: (context, state) {
           if (state is ProductInitial) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -68,28 +74,33 @@ class ProductListPage extends StatelessWidget {
                           (context, index) {
                             if (index < products.length) {
                               final product = products[index];
-                              return Card(
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 6),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16)),
-                                elevation: 4,
-                                child: ListTile(
-                                  contentPadding: const EdgeInsets.all(12),
-                                  leading: ClipRRect(
-                                    borderRadius: BorderRadius.circular(12),
-                                    child: Image.network(product.image,
-                                        width: 60, height: 60),
+                              return GestureDetector(
+                                onTap: (){
+                                  context.read<ProductCubit>().navClick(index, products);
+                                },
+                                child: Card(
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 12, vertical: 6),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16)),
+                                  elevation: 4,
+                                  child: ListTile(
+                                    contentPadding: const EdgeInsets.all(12),
+                                    leading: ClipRRect(
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: Image.network(product.image,
+                                          width: 60, height: 60),
+                                    ),
+                                    title: Text(product.title,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis),
+                                    subtitle: Text(product.description,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis),
+                                    trailing: Text("\$${product.price}",
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold)),
                                   ),
-                                  title: Text(product.title,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis),
-                                  subtitle: Text(product.description,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis),
-                                  trailing: Text("\$${product.price}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold)),
                                 ),
                               );
                             }

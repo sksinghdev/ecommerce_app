@@ -10,6 +10,11 @@ abstract class ProductState extends Equatable {
 class ProductInitial extends ProductState {}
 
 class ProductLoading extends ProductState {}
+class ProductClick extends ProductState { 
+final List<Product> products;
+  final int pos;
+const ProductClick({required this.pos, required this.products});
+}
 
 class ProductLoaded extends ProductState {
   final List<Product> products;

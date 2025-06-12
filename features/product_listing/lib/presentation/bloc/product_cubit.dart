@@ -86,4 +86,8 @@ await Future.delayed(const Duration(seconds: 2));
   }
 
   bool _hasMore() => _displayedProducts.length < _allProducts.length;
+
+  void navClick(int pos , List<Product> product){
+    emit(ProductClick(pos: pos, products: product));
+  }
 }

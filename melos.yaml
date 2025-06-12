@@ -19,3 +19,17 @@ scripts:
         (cd "$package" && flutter pub get)
       done
     description: Run flutter pub get in all packages.
+
+
+  all:
+    run: melos run sync && melos run generate
+    description: Run sync and generate scripts.
+  sync:
+    run: melos exec -- "flutter clean" && melos exec -- "flutter pub get"
+    description: Run `flutter clean && flutter pub get` in all packages
+  generate:
+    run: melos exec -- "dart run build_runner build --delete-conflicting-outputs"
+    description: Run `dart run build_runner build` in all packages
+  unit_test:
+    run: melos exec --dir-exists="test" --fail-fast -- flutter test --no-pub --coverage
+    description: Run all Flutter tests in this project.
