@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String text;
+  final VoidCallback onPressed; // <- Add this
 
   const PrimaryButton({
     super.key,
     required this.text,
+    required this.onPressed, // <- Make it required
   });
 
   @override
@@ -13,7 +15,7 @@ class PrimaryButton extends StatelessWidget {
     return SizedBox(
       height: 50,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: onPressed, // <- Use the callback here
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.blue,
           foregroundColor: Colors.white,
@@ -29,3 +31,4 @@ class PrimaryButton extends StatelessWidget {
     );
   }
 }
+

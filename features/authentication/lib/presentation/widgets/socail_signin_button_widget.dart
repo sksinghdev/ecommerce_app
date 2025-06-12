@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class SocialSignInButton extends StatelessWidget {
   final String text;
   final IconData icon;
+  final VoidCallback onPressed; // <- Add this
 
   const SocialSignInButton({
     super.key,
     required this.text,
     required this.icon,
+    required this.onPressed, // <- Make it required
   });
 
   @override
@@ -20,7 +22,7 @@ class SocialSignInButton extends StatelessWidget {
           text,
           style: const TextStyle(fontSize: 16),
         ),
-        onPressed: () {},
+        onPressed: onPressed, // <- Use the callback here
         style: OutlinedButton.styleFrom(
           foregroundColor: Colors.black,
           shape: RoundedRectangleBorder(
