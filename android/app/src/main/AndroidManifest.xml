@@ -7,6 +7,10 @@ xmlns:tools="http://schemas.android.com/tools">
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         tools:overrideLibrary="com.google.firebase.auth">
+
+        <meta-data
+        android:name="flutter.embedding.android.EnableVulkan"
+        android:value="false" />
        
         <activity
             android:name=".MainActivity"
