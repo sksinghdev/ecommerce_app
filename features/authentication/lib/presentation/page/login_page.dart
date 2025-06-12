@@ -5,6 +5,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:common/common.dart';
 import 'package:ecommerce_app/src/application/di/injection_container.dart';
+
+import 'package:product_listing/core/injection/product_router.dart';
 import '../widgets/auth_input_field_widget.dart';
 import '../widgets/divider_with_text_widget.dart';
 import '../widgets/primarty_button_widget.dart';
@@ -33,6 +35,8 @@ class LoginPage extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Login Successful')),
               );
+
+              context.replaceRoute(const ProductsRoute());
             }
           },
           builder: (context, state) {

@@ -20,6 +20,8 @@ dependencies:
     path: ../../
   common:
     path: ../../core/common
+  product_listing:
+    path: ../../features/product_listing
 
 dev_dependencies:
   flutter_test:

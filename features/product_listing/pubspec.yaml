@@ -16,6 +16,10 @@ dependencies:
    
   cupertino_icons: ^1.0.8
   auto_route: ^9.0.0 
+  ecommerce_app:
+    path: ../../
+  common:
+    path: ../../core/common
 
 dev_dependencies:
   flutter_test:
