@@ -16,7 +16,7 @@ class ProductsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => injector<ProductCubit>()..fetchInitialProducts(),
-      child: const ProductListView(),
+      child:   ProductListPage(),
     );
   }
 }

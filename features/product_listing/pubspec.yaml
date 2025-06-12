@@ -16,6 +16,7 @@ dependencies:
    
   cupertino_icons: ^1.0.8
   auto_route: ^9.0.0 
+  shimmer: ^2.0.0
   ecommerce_app:
     path: ../../
   common:

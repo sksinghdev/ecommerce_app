@@ -6,50 +6,84 @@ import '../../domain/repository/product_repository.dart';
 part 'product_state.dart';
 
 class ProductCubit extends Cubit<ProductState> {
-  final ProductRepository repository;
+  final ProductRepository _repository;
 
-  static const int _itemsPerPage = 10;
-  List<Product> _allProducts = [];
-  int _currentPage = 0;
+  ProductCubit(this._repository) : super(ProductInitial());
 
-  ProductCubit({required this.repository}) : super(ProductInitial());
+  final List<Product> _allProducts = [];
+  final List<Product> _displayedProducts = [];
+
+  int _currentPage = 1;
+  final int _pageSize = 10;
+
+  bool _isFetchingMore = false;
 
   Future<void> fetchInitialProducts() async {
     emit(ProductLoading());
-    final result = await repository.getProducts();
+    _currentPage = 1;
+    _displayedProducts.clear();
+
+    final result = await _repository.getProducts();
+
     result.fold(
       (failure) => emit(ProductError(failure.message)),
       (products) {
-        _allProducts = products;
-        _currentPage = 1;
-        final initialItems = _getPageItems();
-        emit(ProductLoaded(initialItems, _hasMore()));
+        print('santi size of products ${products.length}');
+        _allProducts
+          ..clear()
+          ..addAll(products);
+
+        print('santi initital _allProducts ${_allProducts.length}');   
+
+        final initialPage = _getNextPage();
+        print('santi initital page ${initialPage.length}');
+        _displayedProducts.addAll(initialPage);
+
+        emit(ProductLoaded(
+          products: List.from(_displayedProducts),
+          hasMore: _displayedProducts.length < _allProducts.length,
+          isLoadingMore: false,
+        ));
       },
     );
   }
 
-  void fetchMoreProducts() {
-    if (!_hasMore()) return;
+  Future<void> fetchMoreProducts() async {
+  if (_isFetchingMore || !_hasMore()) return;
 
-    if (state is ProductLoaded) {
-      final currentState = state as ProductLoaded;
-      _currentPage += 1;
-      final newItems = _getPageItems();
-      final updatedList = [...currentState.products, ...newItems];
-      emit(ProductLoaded(updatedList, _hasMore()));
-    }
+  _isFetchingMore = true;
+
+  final currentState = state;
+  if (currentState is ProductLoaded) {
+    emit(currentState.copyWith(isLoadingMore: true));
   }
 
-  List<Product> _getPageItems() {
-    final startIndex = (_currentPage - 1) * _itemsPerPage;
-    final endIndex = startIndex + _itemsPerPage;
-    return _allProducts.sublist(
-      startIndex,
-      endIndex > _allProducts.length ? _allProducts.length : endIndex,
-    );
+await Future.delayed(const Duration(seconds: 2));
+
+  final nextPage = _getNextPage();
+  _displayedProducts.addAll(nextPage);
+
+  emit(ProductLoaded(
+    products: List.from(_displayedProducts),
+    hasMore: _hasMore(),
+    isLoadingMore: false,
+  ));
+
+  _isFetchingMore = false;
+}
+
+
+  List<Product> _getNextPage() {
+    final startIndex = (_currentPage - 1) * _pageSize;
+
+    if (startIndex >= _allProducts.length) return [];
+
+    final endIndex = (_currentPage * _pageSize).clamp(0, _allProducts.length);
+
+    _currentPage++;
+
+    return _allProducts.sublist(startIndex, endIndex);
   }
 
-  bool _hasMore() {
-    return _currentPage * _itemsPerPage < _allProducts.length;
-  }
+  bool _hasMore() => _displayedProducts.length < _allProducts.length;
 }
