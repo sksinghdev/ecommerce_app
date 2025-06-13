@@ -1,4 +1,5 @@
 import 'package:common/common.dart';
+import 'package:common/core/utils/utils.dart';
 
 import '../../domain/entity/product.dart';
 import '../../domain/repository/product_repository.dart';
@@ -88,6 +89,6 @@ await Future.delayed(const Duration(seconds: 2));
   bool _hasMore() => _displayedProducts.length < _allProducts.length;
 
   void navClick(int pos , List<Product> product){
-    emit(ProductClick(pos: pos, products: product));
+    emitSingleTop(ProductClick(pos: pos, products: product));
   }
 }

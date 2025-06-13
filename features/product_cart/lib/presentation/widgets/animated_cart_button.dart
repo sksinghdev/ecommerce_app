@@ -1,8 +1,9 @@
 
 
+import 'package:cart_detail/core/injection/cart_details_router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:common/common.dart';
-
+import 'package:auto_route/auto_route.dart'; 
 import '../bloc/cart_cubit.dart';
 import '../bloc/cart_state.dart';
 
@@ -41,13 +42,18 @@ class AnimatedCartButton extends StatelessWidget {
                 duration: const Duration(milliseconds: 300),
                 transitionBuilder: (child, anim) =>
                     ScaleTransition(scale: anim, child: child),
-                child: CircleAvatar(
-                  key: ValueKey<int>(count),
-                  radius: 10,
-                  backgroundColor: Colors.red,
-                  child: Text(
-                    '$count',
-                    style: const TextStyle(color: Colors.white, fontSize: 12),
+                child: GestureDetector(
+                  onTap: (){
+                    context.pushRoute(  CartDetails(products: state.cartItems));
+                  },
+                  child: CircleAvatar(
+                    key: ValueKey<int>(count),
+                    radius: 10,
+                    backgroundColor: Colors.red,
+                    child: Text(
+                      '$count',
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                    ),
                   ),
                 ),
               ),

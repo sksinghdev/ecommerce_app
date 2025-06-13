@@ -23,6 +23,9 @@ dependencies:
     path: ../../core/common
   product_cart:
     path: ../../features/product_cart 
+  cart_detail:
+    path: ../../features/cart_detail 
+   
 
 dev_dependencies:
   flutter_test:

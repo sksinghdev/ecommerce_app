@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:common/common.dart';
 import 'package:product_cart/core/injection/cart_router.gr.dart';
- import 'package:shimmer/shimmer.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:product_listing/presentation/bloc/product_cubit.dart';
 
 class ProductListPage extends StatelessWidget {
@@ -13,8 +13,11 @@ class ProductListPage extends StatelessWidget {
     return Scaffold(
       body: BlocConsumer<ProductCubit, ProductState>(
         listener: (context, state) {
-          if(state is ProductClick){
-            context.navigateTo(ProductCarts(pos: state.pos,products: state.products,));
+          if (state is ProductClick) {
+            context.pushRoute(ProductCarts(
+              pos: state.pos,
+              products: state.products,
+            ));
           }
         },
         builder: (context, state) {
@@ -75,8 +78,10 @@ class ProductListPage extends StatelessWidget {
                             if (index < products.length) {
                               final product = products[index];
                               return GestureDetector(
-                                onTap: (){
-                                  context.read<ProductCubit>().navClick(index, products);
+                                onTap: () {
+                                  context
+                                      .read<ProductCubit>()
+                                      .navClick(index, products);
                                 },
                                 child: Card(
                                   margin: const EdgeInsets.symmetric(
@@ -104,11 +109,11 @@ class ProductListPage extends StatelessWidget {
                                 ),
                               );
                             }
-                  
+
                             if (isLoadingMore) {
                               return _buildShimmerTile();
                             }
-                  
+
                             return const Padding(
                               padding: EdgeInsets.all(16.0),
                               child: Center(

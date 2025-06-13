@@ -2,12 +2,22 @@ import 'package:ecommerce_app/src/application/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:common/common.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'src/application/di/injection_container.dart' as di;
-final _appRouter =  AppRouter();
+
+ import 'src/application/di/injection_container.dart' as di;
+ 
+import 'dart:io';
+
+ final _appRouter =  AppRouter();
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+ 
+
+
   await Firebase.initializeApp();
-  await _registerDependencies();
+
+  
+   await _registerDependencies();
+   
   runApp(const MyApp());
 }
 

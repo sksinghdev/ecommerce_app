@@ -1,7 +1,7 @@
-name: authentication
+name: cart_detail
 description: "A new Flutter project."
  
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none'  
 
  
 version: 1.0.0+1
@@ -12,22 +12,27 @@ environment:
  
 dependencies:
   flutter:
-    sdk: flutter 
+    sdk: flutter
+
+  
   cupertino_icons: ^1.0.8
   auto_route: ^9.0.0 
   google_fonts: ^4.0.4  
+  flutter_stripe: ^10.2.0 # latest stable
+  http: ^0.13.5
+  flutter_dotenv: ^5.1.0 # for environment variables (API keys)
   ecommerce_app:
     path: ../../
   common:
     path: ../../core/common
-  product_listing:
-    path: ../../features/product_listing
+  product_cart:
+    path: ../../features/product_cart 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  
+   
   flutter_lints: ^5.0.0
   auto_route_generator: ^9.0.0
   build_runner: ^2.4.4
@@ -35,7 +40,7 @@ dev_dependencies:
  
 flutter:
 
-   
+ 
   uses-material-design: true
 
-  
+   

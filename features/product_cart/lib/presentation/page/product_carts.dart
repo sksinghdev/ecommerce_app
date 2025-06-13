@@ -1,5 +1,4 @@
-import 'dart:math';
-
+ 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:product_listing/domain/entity/product.dart';
@@ -17,9 +16,6 @@ class ProductCarts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final randomImage = products.isNotEmpty
-        ? products[Random().nextInt(products.length)].image
-        : null;
 
     return BlocProvider(
       create: (_) => CartCubit(),

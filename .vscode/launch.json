@@ -5,6 +5,26 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Flutter",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart"
+        },
+        
+
+        {
+            "name": "Flutter",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart"
+        },
+        {
+            "name": "ecommerce_app",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug"
+          },
+        {
             "name": "ecommerce_app",
             "request": "launch",
             "type": "dart"

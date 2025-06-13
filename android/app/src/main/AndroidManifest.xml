@@ -6,7 +6,12 @@ xmlns:tools="http://schemas.android.com/tools">
         android:label="ecommerce_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
+        android:enableOnBackInvokedCallback="true"
         tools:overrideLibrary="com.google.firebase.auth">
+
+        <meta-data
+        android:name="flutterEmbedding"
+        android:value="2" />
 
         <meta-data
         android:name="flutter.embedding.android.EnableVulkan"
