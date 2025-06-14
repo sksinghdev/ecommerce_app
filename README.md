@@ -78,7 +78,7 @@ A monorepo (short for monolithic repository) is a single repository that contain
       `auto_route_generator`   Code generation for auto_route
       `google_fonts`	       Use Google Fonts in your Flutter app 
 
-
+```
 ecommerce_app/
 ├── lib/
 │   ├── main.dart                         # Entry point of the app
@@ -195,7 +195,7 @@ ecommerce_app/
 │   │       │   └── products_page.dart
 │   │       └── widgets/
 │   │           └── product_list_widget.dart
-
+```
 
 
 
