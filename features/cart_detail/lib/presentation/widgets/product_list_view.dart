@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:common/common.dart';
+import '../../core/injection/cart_details_router.gr.dart';
 import '../block/product_list_cubit.dart';
 import 'package:product_listing/domain/entity/product.dart';
 
@@ -16,10 +18,7 @@ class ProductListView extends StatelessWidget {
       body: BlocConsumer<ProductListCubit, ProductListState>(
          listener: (context, state) {
           if(state is ProductPaymentSuccess){
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                    content: Text('product placed sucessfully')),
-              );
+            context.replaceRoute(OrderSuccessRoute(products: products,paymentMethod: '**** **** **** **** 4242',orderId: '233456890',deliveryDate: DateTime.now()));
           }
          },
         builder: (context, state) {

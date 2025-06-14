@@ -29,11 +29,8 @@ class ProductListCubit extends Cubit<ProductListState> {
   }
   Future<void> makePayment(double amount, List<Product> products, int userId) async {
     try {
-     // emit(ProductPaymentLoading());
-      final intent = await repository.createPaymentIntent(amount, 'usd');
-      // "pi_3RZdlIIdA1F8gfjv2ApXnkfu_secret_e661ETRm5EfWAspDRX0BMVy0H"
-      print('santi client_sectrect ${intent.clientSecret}');
-
+       final intent = await repository.createPaymentIntent(amount, 'usd');
+ 
       await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
           paymentIntentClientSecret: intent.clientSecret,

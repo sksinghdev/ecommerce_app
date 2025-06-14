@@ -8,5 +8,7 @@ class CartDetailsRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(page: CartDetails.page, path: '/cartdetails'),
+        AutoRoute(page: OrderSuccessRoute.page, path: '/OrderSuccessRoute'),
+        
       ];
 }
