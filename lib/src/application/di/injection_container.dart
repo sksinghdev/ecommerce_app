@@ -3,9 +3,8 @@
  import 'package:cart_detail/data/payment_repository.dart';
 import 'package:cart_detail/data/repositories/order_repository_impl.dart';
 import 'package:cart_detail/domain/repository/order_repository.dart';
-
-import 'package:cart_detail/presentation/block/order_cubit.dart';
-import 'package:cart_detail/presentation/block/product_list_cubit.dart';
+import 'package:cart_detail/presentation/bloc/order_cubit.dart';
+import 'package:cart_detail/presentation/bloc/product_list_cubit.dart';
 import 'package:common/common.dart';
 import 'package:product_listing/data/repositories/product_repository_impl.dart';
 import 'package:product_listing/domain/repository/product_repository.dart';
