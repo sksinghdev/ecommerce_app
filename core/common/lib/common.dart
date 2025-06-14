@@ -13,6 +13,7 @@ export 'package:equatable/equatable.dart';
 export 'package:dartz/dartz.dart';
 export 'package:common/data/models/failure.dart';
 export 'package:cached_network_image/cached_network_image.dart';
+export 'package:mocktail/mocktail.dart';
  
  
 
