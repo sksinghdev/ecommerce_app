@@ -6,7 +6,7 @@ import 'package:product_listing/domain/entity/product.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce_app/src/application/di/injection_container.dart';
 
-import '../block/product_list_cubit.dart';
+import '../bloc/product_list_cubit.dart';
 import '../widgets/product_list_view.dart';
 
 @RoutePage()
