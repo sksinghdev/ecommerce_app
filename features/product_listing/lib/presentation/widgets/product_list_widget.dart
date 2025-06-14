@@ -203,14 +203,11 @@ class ProductListPage extends StatelessWidget {
         ),
       ElevatedButton(
           onPressed: () async {
-            // ✅ Perform logout directly here
-            await FirebaseAuth.instance.signOut();
+             await FirebaseAuth.instance.signOut();
 
-            // ✅ Then close the dialog
-            Navigator.of(context).pop();
+             Navigator.of(context).pop();
 
-            // ✅ Then navigate to login (after dialog closes)
-            context.replaceRoute(const LoginRoute()); // or context.router.replace(...)
+             context.replaceRoute(const LoginRoute()); 
           },
           style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
           child: const Text('Logout'),

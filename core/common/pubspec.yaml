@@ -31,6 +31,9 @@ dependencies:
     path: ../../
 
 dev_dependencies:
+
+  mocktail: ^0.2.0
+  bloc_test: ^8.5.0
   flutter_test:
     sdk: flutter
 
