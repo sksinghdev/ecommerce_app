@@ -21,7 +21,7 @@ class LoginPage extends StatelessWidget {
     return BlocProvider(
       create: (_) => injector<AuthCubit>(),
       child: Scaffold(
-        appBar: AppBar(title: const Text('Login')),
+        appBar: AppBar(title: const Text('Login..')),
         body: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state is Unauthenticated) {
