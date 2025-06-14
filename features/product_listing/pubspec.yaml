@@ -25,6 +25,8 @@ dependencies:
     path: ../../features/product_cart 
   cart_detail:
     path: ../../features/cart_detail 
+  authentication:
+    path: ../../features/authentication    
    
 
 dev_dependencies:

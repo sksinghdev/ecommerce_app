@@ -25,6 +25,7 @@ dependencies:
   google_sign_in: ^6.2.1
   connectivity_plus: ^6.0.1
   dio: ^5.4.0
+  cached_network_image: ^3.3.0
   
   ecommerce_app:
     path: ../../
