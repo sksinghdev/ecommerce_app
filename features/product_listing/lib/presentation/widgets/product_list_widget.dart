@@ -4,6 +4,7 @@ import 'package:common/common.dart';
 import 'package:product_cart/core/injection/cart_router.gr.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:product_listing/presentation/bloc/product_cubit.dart';
+import 'package:authentication/core/injections/auth_router.gr.dart';
 
 class ProductListPage extends StatelessWidget {
   const ProductListPage({super.key});
@@ -71,6 +72,20 @@ class ProductListPage extends StatelessWidget {
                             fit: BoxFit.cover,
                           ),
                         ),
+                        actions: [
+                          GestureDetector(
+                            child: Icon(Icons.manage_history),
+                            onTap: () {},
+                          ),
+                          SizedBox(width: 20,),
+                          GestureDetector(
+                            child: Icon(Icons.logout),
+                            onTap: () {
+                              showLogoutConfirmationDialog(context);
+                            },
+                          ), 
+                          SizedBox(width: 20,)
+                        ],
                       ),
                       SliverList(
                         delegate: SliverChildBuilderDelegate(
@@ -173,4 +188,36 @@ class ProductListPage extends StatelessWidget {
       ),
     );
   }
+  Future<bool> showLogoutConfirmationDialog(BuildContext context) async {
+  return await showDialog<bool>(
+    context: context,
+    barrierDismissible: false, // must choose
+    builder: (context) => AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      title: const Text('Confirm Logout'),
+      content: const Text('Are you sure you want to logout?'),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(false),
+          child: const Text('Cancel'),
+        ),
+      ElevatedButton(
+          onPressed: () async {
+            // ✅ Perform logout directly here
+            await FirebaseAuth.instance.signOut();
+
+            // ✅ Then close the dialog
+            Navigator.of(context).pop();
+
+            // ✅ Then navigate to login (after dialog closes)
+            context.replaceRoute(const LoginRoute()); // or context.router.replace(...)
+          },
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+          child: const Text('Logout'),
+        ),
+      ],
+    ),
+  ).then((value) => value ?? false);
+}
+
 }

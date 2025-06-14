@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
- import 'package:product_listing/domain/entity/product.dart';
+import 'package:product_listing/domain/entity/product.dart';
 import '../bloc/cart_cubit.dart';
 import 'package:common/common.dart';
+import 'package:cart_detail/presentation/bloc/product_list_cubit.dart';
+
+import 'product_card.dart';
 
 class ProductCarousel extends StatelessWidget {
   final int pos;
@@ -22,7 +25,7 @@ class ProductCarousel extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: 320,
+          height: 400,
           child: PageView.builder(
             controller: controller,
             itemCount: products.length,
@@ -30,44 +33,26 @@ class ProductCarousel extends StatelessWidget {
             itemBuilder: (context, index) {
               final product = products[index];
               return GestureDetector(
-                onTap: () => context.read<CartCubit>().addOrRemoveFromCart(product),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Card(
-                    elevation: 4,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: ClipRRect(
-                            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-                            child: Image.network(
-                              product.image,
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                              errorBuilder: (_, __, ___) => const Icon(Icons.broken_image),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            children: [
-                              Text(
-                                product.title,
-                                style: const TextStyle(fontWeight: FontWeight.bold),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              Text('\$${product.price.toStringAsFixed(2)}'),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                child: ProductCard(
+                  product: product,
+                  onPressedCart: () {
+                    context.read<CartCubit>().addOrRemoveFromCart(product);
+                  },
+                  onPressedPayment: () {
+                    /// need to call payment here
+                    ///
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Proceeding to payment...')),
+                    );
+
+                    /// TODO: Replace with actual user ID from auth state
+                    const int userId = 23;
+                    context.read<ProductListCubit>().makePayment(
+                          product.price,
+                          [product],
+                          userId,
+                        );
+                  },
                 ),
               );
             },
@@ -83,9 +68,9 @@ class ProductCarousel extends StatelessWidget {
                 final isActive = index == currentPage;
                 return AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
-                  width: isActive ? 12 : 8,
-                  height: isActive ? 12 : 8,
+                  margin: const EdgeInsets.symmetric(horizontal: 2),
+                  width: isActive ? 8 : 5,
+                  height: isActive ? 8 : 5,
                   decoration: BoxDecoration(
                     color: isActive ? Colors.blue : Colors.grey[300],
                     shape: BoxShape.circle,

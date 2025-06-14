@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:common/common.dart';
 import '../../core/injection/cart_details_router.gr.dart';
-import '../block/product_list_cubit.dart';
+import '../bloc/product_list_cubit.dart';
 import 'package:product_listing/domain/entity/product.dart';
 
 class ProductListView extends StatelessWidget {
