@@ -12,7 +12,19 @@
          running.
 
          This Theme is only used starting with V2 of Flutter's Android embedding. -->
-    <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
-        <item name="android:windowBackground">?android:colorBackground</item>
+    <!-- Base application theme using MaterialComponents -->
+    <style name="NormalTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Customize your colors -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <!-- Optional: Customize status bar & navigation -->
+        <item name="android:navigationBarColor">@android:color/black</item>
+
+        <!-- Optional: Disable action bar shadow -->
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 </resources>

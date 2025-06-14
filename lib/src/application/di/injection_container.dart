@@ -1,11 +1,12 @@
 
 
-import 'package:cart_detail/data/order_repository.dart';
-import 'package:cart_detail/data/payment_repository.dart';
+ import 'package:cart_detail/data/payment_repository.dart';
+import 'package:cart_detail/data/repositories/order_repository_impl.dart';
+import 'package:cart_detail/domain/repository/order_repository.dart';
+
 import 'package:cart_detail/presentation/block/order_cubit.dart';
 import 'package:cart_detail/presentation/block/product_list_cubit.dart';
 import 'package:common/common.dart';
-import 'package:flutter/services.dart';
 import 'package:product_listing/data/repositories/product_repository_impl.dart';
 import 'package:product_listing/domain/repository/product_repository.dart';
 import 'package:common/data/repository/auth_repository.dart';
@@ -27,16 +28,7 @@ Future<void> init() async {
    
    Stripe.publishableKey = stripeKey;
 
-   try {
   await Stripe.instance.applySettings();
-  print('Stripe settings applied successfully!');
-} on PlatformException catch (e) {
-  print('Platform Exception during Stripe initialization: ${e.message}');
-  print('Details: ${e.details}');
-} catch (e) {
-  print('General Error during Stripe initialization: $e');
-}
-   //await Stripe.instance.applySettings();
 
 // Firebase & Auth
 injector.registerLazySingleton(() => FirebaseAuth.instance);
@@ -60,9 +52,7 @@ injector.registerFactory(() => ProductCubit(injector()));
 injector.registerLazySingleton<PaymentRepository>(
   () => PaymentRepository(injector()),
 );
-injector.registerLazySingleton<OrderRepository>(
-  () => OrderRepository(injector()),
-);
+injector.registerLazySingleton<OrderRepository>(() => OrderRepositoryImpl(injector<ApiService>()));
 injector.registerFactory(() => OrderCubit(injector()));
 injector.registerFactory(() => ProductListCubit(injector(), injector<OrderCubit>()));
 
