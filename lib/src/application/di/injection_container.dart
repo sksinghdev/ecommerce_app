@@ -1,6 +1,7 @@
 
 
- import 'package:cart_detail/data/payment_repository.dart';
+ import 'package:cart_detail/core/service/stripe_service.dart';
+import 'package:cart_detail/data/payment_repository.dart';
 import 'package:cart_detail/data/repositories/order_repository_impl.dart';
 import 'package:cart_detail/domain/repository/order_repository.dart';
 import 'package:cart_detail/presentation/bloc/order_cubit.dart';
@@ -34,6 +35,12 @@ injector.registerLazySingleton(() => FirebaseAuth.instance);
 injector.registerLazySingleton(() => GoogleSignIn());
 injector.registerLazySingleton(() => AuthRepository());
 injector.registerFactory(() => AuthCubit(injector()));
+ 
+
+injector.registerLazySingleton<Stripe>(() => Stripe.instance);
+injector.registerLazySingleton<StripeService>(
+  () => StripeService(stripeInstance: injector<Stripe>())
+);
 
 // Network & API
 injector.registerLazySingleton<Dio>(() => DioClient().dio);
@@ -53,7 +60,7 @@ injector.registerLazySingleton<PaymentRepository>(
 );
 injector.registerLazySingleton<OrderRepository>(() => OrderRepositoryImpl(injector<ApiService>()));
 injector.registerFactory(() => OrderCubit(injector()));
-injector.registerFactory(() => ProductListCubit(injector(), injector<OrderCubit>()));
+injector.registerFactory(() => ProductListCubit(injector(), injector<OrderCubit>(),injector()));
 
 
 }

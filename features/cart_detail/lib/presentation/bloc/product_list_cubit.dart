@@ -1,23 +1,24 @@
-  import 'package:cart_detail/presentation/bloc/order_cubit.dart';
+import 'package:cart_detail/presentation/bloc/order_cubit.dart';
 import 'package:common/common.dart';
 import 'package:product_listing/domain/entity/product.dart';
 
-import '../../cart_view.dart';
+import '../../core/service/stripe_service.dart';
 import '../../data/payment_repository.dart';
- 
+
 part 'product_list_state.dart';
 
 class ProductListCubit extends Cubit<ProductListState> {
-  
-
-    final PaymentRepository repository;
-    final OrderCubit orderCubit; 
-  ProductListCubit(this.repository, this.orderCubit) : super(ProductListInitial());
+  final PaymentRepository repository;
+  final OrderCubit orderCubit;
+  final StripeService stripeService;
+  ProductListCubit(this.repository, this.orderCubit, this.stripeService)
+      : super(ProductListInitial());
 
   void loadProducts(List<Product> products) async {
     emit(ProductListLoading());
     try {
-      await Future.delayed(const Duration(milliseconds: 500)); // Simulate loading
+      await Future.delayed(
+          const Duration(milliseconds: 500)); // Simulate loading
       if (products.isEmpty) {
         throw Exception("Product list is empty.");
       }
@@ -27,25 +28,19 @@ class ProductListCubit extends Cubit<ProductListState> {
       emit(ProductListError(message: e.toString()));
     }
   }
-  Future<void> makePayment(double amount, List<Product> products, int userId) async {
+
+  Future<void> makePayment(
+      double amount, List<Product> products, int userId) async {
     try {
-       final intent = await repository.createPaymentIntent(amount, 'usd');
- 
-      await Stripe.instance.initPaymentSheet(
-        paymentSheetParameters: SetupPaymentSheetParameters(
-          paymentIntentClientSecret: intent.clientSecret,
-          merchantDisplayName: 'FakeStore',
-        ),
-      );
+      final intent = await repository.createPaymentIntent(amount, 'usd');
 
-      await Stripe.instance.presentPaymentSheet();
+      await stripeService.initPaymentSheet(intent.clientSecret);
+      await stripeService.presentPaymentSheet();
 
-      
       await orderCubit.completeOrder(products, userId);
       emit(ProductPaymentSuccess());
     } catch (e) {
       emit(ProductPaymentError(error: e.toString()));
     }
   }
-
 }
