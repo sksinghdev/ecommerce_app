@@ -6,6 +6,7 @@ xmlns:tools="http://schemas.android.com/tools">
         android:label="ecommerce_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
+         android:theme="@style/NormalTheme"
         android:enableOnBackInvokedCallback="true"
         tools:overrideLibrary="com.google.firebase.auth">
 
