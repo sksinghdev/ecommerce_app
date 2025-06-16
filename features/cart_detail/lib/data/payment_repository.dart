@@ -15,8 +15,6 @@ class PaymentRepository {
         'currency': currency,
       },
     );
-    print('santi ${response}');
-    print('santi : ${response.data}');
 
     return PaymentIntent.fromJson(response.data);
   }
