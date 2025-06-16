@@ -23,6 +23,7 @@ dependencies:
   firebase_core: ^2.32.0
   firebase_auth: ^4.17.8
   google_sign_in: ^6.2.1
+  hive_flutter: ^1.1.0
   connectivity_plus: ^6.0.1
   dio: ^5.4.0
   cached_network_image: ^3.3.0
@@ -39,6 +40,8 @@ dev_dependencies:
 
    
   flutter_lints: ^5.0.0
+  hive_generator: ^2.0.1
+  build_runner: ^2.4.4
 
  
 flutter:

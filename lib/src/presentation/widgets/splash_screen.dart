@@ -3,9 +3,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:common/presentation/bloc/network_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:common/common.dart';
+import 'package:product_listing/core/injection/product_router.gr.dart';
 import '../../application/di/injection_container.dart';
- import 'package:product_listing/core/injection/product_router.dart';
-
 
 @RoutePage()
 class SplashScreen extends StatelessWidget {
@@ -21,16 +20,12 @@ class SplashScreen extends StatelessWidget {
           Future.delayed(const Duration(seconds: 2), () {
             User? user = FirebaseAuth.instance.currentUser;
 
-           
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              
-              
-               if (user != null) {
-               context.replaceRoute(const ProductsRoute());
-            } else {
-              context.replaceRoute(const LoginRoute());
-            }
-
+              if (user != null) {
+                context.replaceRoute(const ProductsRoute());
+              } else {
+                context.replaceRoute(const LoginRoute());
+              }
             });
           });
         }

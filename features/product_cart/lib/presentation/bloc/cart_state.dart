@@ -1,5 +1,3 @@
-
-
 import 'package:common/common.dart';
 import 'package:product_listing/domain/entity/product.dart';
 

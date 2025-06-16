@@ -39,8 +39,6 @@ class ProductCarousel extends StatelessWidget {
                     context.read<CartCubit>().addOrRemoveFromCart(product);
                   },
                   onPressedPayment: () {
-                    /// need to call payment here
-                    ///
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Proceeding to payment...')),
                     );

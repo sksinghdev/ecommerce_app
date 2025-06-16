@@ -1,7 +1,4 @@
-
-
 part of 'product_list_cubit.dart';
- 
 
 abstract class ProductListState extends Equatable {
   const ProductListState();
@@ -15,11 +12,12 @@ class ProductListInitial extends ProductListState {}
 class ProductListLoading extends ProductListState {}
 
 class ProductPaymentLoading extends ProductListState {}
-class ProductPaymentSuccess extends ProductListState {}
-class ProductPaymentError extends ProductListState {
 
-  final String error ;
- const  ProductPaymentError({ required this.error});
+class ProductPaymentSuccess extends ProductListState {}
+
+class ProductPaymentError extends ProductListState {
+  final String error;
+  const ProductPaymentError({required this.error});
 }
 
 class ProductListLoaded extends ProductListState {

@@ -50,25 +50,23 @@ void main() {
     expect: () => [NetworkStatus.disconnected],
   );
 
- blocTest<ConnectivityCubit, NetworkStatus>(
-  'emits [connected, disconnected] on stream change (no duplicate connected)',
-  build: () {
-    when(() => mockConnectivity.checkConnectivity())
-        .thenAnswer((_) async => [ConnectivityResult.wifi]);
+  blocTest<ConnectivityCubit, NetworkStatus>(
+    'emits [connected, disconnected] on stream change (no duplicate connected)',
+    build: () {
+      when(() => mockConnectivity.checkConnectivity())
+          .thenAnswer((_) async => [ConnectivityResult.wifi]);
 
-    when(() => mockConnectivity.onConnectivityChanged)
-        .thenAnswer((_) => connectivityStreamController.stream.map((e) => [e]));
+      when(() => mockConnectivity.onConnectivityChanged).thenAnswer(
+          (_) => connectivityStreamController.stream.map((e) => [e]));
 
-    return ConnectivityCubit(mockConnectivity);
-  },
-  act: (cubit) async {
-    connectivityStreamController.add(ConnectivityResult.none);   // disconnected
-  },
-  expect: () => [
-    NetworkStatus.connected,       // initial
-    NetworkStatus.disconnected,    // from stream
-  ],
-);
-
-
+      return ConnectivityCubit(mockConnectivity);
+    },
+    act: (cubit) async {
+      connectivityStreamController.add(ConnectivityResult.none); // disconnected
+    },
+    expect: () => [
+      NetworkStatus.connected, // initial
+      NetworkStatus.disconnected, // from stream
+    ],
+  );
 }

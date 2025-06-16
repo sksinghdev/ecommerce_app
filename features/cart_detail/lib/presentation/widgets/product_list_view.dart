@@ -16,11 +16,15 @@ class ProductListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocConsumer<ProductListCubit, ProductListState>(
-         listener: (context, state) {
-          if(state is ProductPaymentSuccess){
-            context.replaceRoute(OrderSuccessRoute(products: products,paymentMethod: '**** **** **** **** 4242',orderId: '233456890',deliveryDate: DateTime.now()));
+        listener: (context, state) {
+          if (state is ProductPaymentSuccess) {
+            context.replaceRoute(OrderSuccessRoute(
+                products: products,
+                paymentMethod: '**** **** **** **** 4242',
+                orderId: '233456890',
+                deliveryDate: DateTime.now()));
           }
-         },
+        },
         builder: (context, state) {
           if (state is ProductListInitial || state is ProductListLoading) {
             context.read<ProductListCubit>().loadProducts(products);
@@ -42,7 +46,8 @@ class ProductListView extends StatelessWidget {
                 slivers: [
                   _buildAppBar(),
                   SliverToBoxAdapter(child: _buildProductList(state.products)),
-                  SliverToBoxAdapter(child: _buildSubtotalAndPayButton(context, state)),
+                  SliverToBoxAdapter(
+                      child: _buildSubtotalAndPayButton(context, state)),
                 ],
               ),
             );
@@ -74,7 +79,8 @@ class ProductListView extends StatelessWidget {
       itemBuilder: (context, index) {
         final product = products[index];
         return ListTile(
-          leading: Image.network(product.image, width: 50, height: 50, fit: BoxFit.cover),
+          leading: Image.network(product.image,
+              width: 50, height: 50, fit: BoxFit.cover),
           title: Text(product.title),
           subtitle: Text(product.category),
           trailing: Text("\$${product.price.toStringAsFixed(2)}"),
@@ -83,7 +89,8 @@ class ProductListView extends StatelessWidget {
     );
   }
 
-  Widget _buildSubtotalAndPayButton(BuildContext context, ProductListLoaded state) {
+  Widget _buildSubtotalAndPayButton(
+      BuildContext context, ProductListLoaded state) {
     return Column(
       children: [
         _buildSubtotalRow(state.subtotal),
@@ -105,8 +112,10 @@ class ProductListView extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text("Subtotal:", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          Text("\$${subtotal.toStringAsFixed(2)}", style: const TextStyle(fontSize: 18)),
+          const Text("Subtotal:",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          Text("\$${subtotal.toStringAsFixed(2)}",
+              style: const TextStyle(fontSize: 18)),
         ],
       ),
     );
@@ -120,7 +129,8 @@ class ProductListView extends StatelessWidget {
         child: ElevatedButton.icon(
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.symmetric(vertical: 14),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             backgroundColor: Colors.green,
           ),
           onPressed: () {
@@ -139,7 +149,8 @@ class ProductListView extends StatelessWidget {
           icon: Text('💸', style: GoogleFonts.roboto(fontSize: 24)),
           label: Text(
             'Make Payment',
-            style: GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold),
+            style:
+                GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold),
           ),
         ),
       ),

@@ -3,26 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:common/common.dart';
 import 'package:firebase_core/firebase_core.dart';
 
- import 'src/application/di/injection_container.dart' as di;
- 
-import 'dart:io';
+import 'src/application/di/injection_container.dart' as di;
 
- final _appRouter =  AppRouter();
-void main() async{
+
+final _appRouter = AppRouter();
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
- 
-
-
   await Firebase.initializeApp();
-
-  
-   await _registerDependencies();
-   
+  await _registerDependencies();
   runApp(const MyApp());
 }
 
-Future<void> _registerDependencies()async {
-await di.init();
+Future<void> _registerDependencies() async {
+  await di.init();
 }
 
 class MyApp extends StatelessWidget {
@@ -31,7 +24,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-   try {
+    try {
       return MaterialApp.router(
         routerConfig: _appRouter.config(),
         debugShowCheckedModeBanner: false,
@@ -43,8 +36,9 @@ class MyApp extends StatelessWidget {
       );
     } catch (e, stack) {
       debugPrint('Error during router initialization: $e\n$stack');
-      return const MaterialApp(home: Scaffold(body: Center(child: Text('App initialization failed'))));
+      return const MaterialApp(
+          home:
+              Scaffold(body: Center(child: Text('App initialization failed'))));
     }
   }
 }
-

@@ -4,7 +4,8 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 class StripeService {
   final Stripe stripe;
 
-   StripeService({Stripe? stripeInstance}) : stripe = stripeInstance ?? Stripe.instance;
+  StripeService({Stripe? stripeInstance})
+      : stripe = stripeInstance ?? Stripe.instance;
 
   Future<void> initPaymentSheet(String clientSecret) async {
     await stripe.initPaymentSheet(

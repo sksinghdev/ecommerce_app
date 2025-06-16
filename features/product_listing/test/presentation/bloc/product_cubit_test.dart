@@ -73,39 +73,40 @@ void main() {
       ],
     );
 
-   blocTest<ProductCubit, ProductState>(
-  'emits [Loading, Loaded, LoadingMore, Loaded] when fetchMoreProducts is called',
-  build: () {
-    when(() => mockRepository.getProducts())
-        .thenAnswer((_) async => Right(mockProducts));
-    return productCubit;
-  },
-  act: (cubit) async {
-    await cubit.fetchInitialProducts(); // load first 10
-    await cubit.fetchMoreProducts(); // load next 10
-  },
-  wait: const Duration(seconds: 3),
-  expect: () => [
-    ProductLoading(),
-    isA<ProductLoaded>().having((s) => s.products.length, 'products.length', 10)
-                         .having((s) => s.isLoadingMore, 'isLoadingMore', false),
-    isA<ProductLoaded>().having((s) => s.products.length, 'products.length', 10)
-                         .having((s) => s.isLoadingMore, 'isLoadingMore', true),
-    isA<ProductLoaded>().having((s) => s.products.length, 'products.length', 20)
-                         .having((s) => s.isLoadingMore, 'isLoadingMore', false),
-  ],
-);
+    blocTest<ProductCubit, ProductState>(
+      'emits [Loading, Loaded, LoadingMore, Loaded] when fetchMoreProducts is called',
+      build: () {
+        when(() => mockRepository.getProducts())
+            .thenAnswer((_) async => Right(mockProducts));
+        return productCubit;
+      },
+      act: (cubit) async {
+        await cubit.fetchInitialProducts(); // load first 10
+        await cubit.fetchMoreProducts(); // load next 10
+      },
+      wait: const Duration(seconds: 3),
+      expect: () => [
+        ProductLoading(),
+        isA<ProductLoaded>()
+            .having((s) => s.products.length, 'products.length', 10)
+            .having((s) => s.isLoadingMore, 'isLoadingMore', false),
+        isA<ProductLoaded>()
+            .having((s) => s.products.length, 'products.length', 10)
+            .having((s) => s.isLoadingMore, 'isLoadingMore', true),
+        isA<ProductLoaded>()
+            .having((s) => s.products.length, 'products.length', 20)
+            .having((s) => s.isLoadingMore, 'isLoadingMore', false),
+      ],
+    );
 
-
-   blocTest<ProductCubit, ProductState>(
-  'emits ProductClick and then ProductInitial on navClick',
-  build: () => productCubit,
-  act: (cubit) => cubit.navClick(2, mockProducts),
-  expect: () => [
-    ProductClick(pos: 2, products: mockProducts),
-    ProductInitial(),
-  ],
-);
-
+    blocTest<ProductCubit, ProductState>(
+      'emits ProductClick and then ProductInitial on navClick',
+      build: () => productCubit,
+      act: (cubit) => cubit.navClick(2, mockProducts),
+      expect: () => [
+        ProductClick(pos: 2, products: mockProducts),
+        ProductInitial(),
+      ],
+    );
   });
 }

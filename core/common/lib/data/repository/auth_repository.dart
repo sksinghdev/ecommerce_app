@@ -5,13 +5,15 @@ class AuthRepository {
   var auth = FirebaseAuth.instance;
   var googleSignIn = GoogleSignIn();
 
- Future<User?> signInWithEmail(String email, String password) async {
-    final result = await auth.signInWithEmailAndPassword(email: email, password: password);
+  Future<User?> signInWithEmail(String email, String password) async {
+    final result =
+        await auth.signInWithEmailAndPassword(email: email, password: password);
     return result.user;
   }
 
   Future<User?> signUpWithEmail(String email, String password) async {
-    final result = await auth.createUserWithEmailAndPassword(email: email, password: password);
+    final result = await auth.createUserWithEmailAndPassword(
+        email: email, password: password);
     return result.user;
   }
 
@@ -28,9 +30,7 @@ class AuthRepository {
     return result.user;
   }
 
-  
-
- Future<void> signOut() async {
+  Future<void> signOut() async {
     await auth.signOut();
     await googleSignIn.signOut();
   }

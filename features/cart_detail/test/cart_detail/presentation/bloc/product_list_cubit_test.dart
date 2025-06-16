@@ -1,7 +1,3 @@
-
-
-
-
 import 'package:bloc_test/bloc_test.dart';
 import 'package:cart_detail/core/service/stripe_service.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -11,27 +7,24 @@ import 'package:cart_detail/domain/payment_intent.dart';
 import 'package:cart_detail/presentation/bloc/product_list_cubit.dart';
 import 'package:cart_detail/presentation/bloc/order_cubit.dart';
 import 'package:product_listing/domain/entity/product.dart';
- 
+
 class MockPaymentRepository extends Mock implements PaymentRepository {}
 
 class MockOrderCubit extends Mock implements OrderCubit {}
+
 class MockStripeService extends Mock implements StripeService {}
- 
+
 void main() {
   late ProductListCubit cubit;
   late MockPaymentRepository mockRepo;
   late MockOrderCubit mockOrderCubit;
   late MockStripeService mockStripeService;
 
-  setUpAll(() {
-   // registerFallbackValue<List<Product>>([]);
-  });
-
   setUp(() {
     mockRepo = MockPaymentRepository();
     mockOrderCubit = MockOrderCubit();
     mockStripeService = MockStripeService();
-    cubit = ProductListCubit(mockRepo, mockOrderCubit,mockStripeService);
+    cubit = ProductListCubit(mockRepo, mockOrderCubit, mockStripeService);
   });
 
   final sampleProducts = [
@@ -72,8 +65,8 @@ void main() {
       act: (cubit) => cubit.loadProducts([]),
       expect: () => [
         ProductListLoading(),
-        isA<ProductListError>()
-            .having((s) => s.message, 'message', contains('Product list is empty')),
+        isA<ProductListError>().having(
+            (s) => s.message, 'message', contains('Product list is empty')),
       ],
     );
   });
@@ -88,28 +81,27 @@ void main() {
     //   // Either wrap it or assume it works in unit tests.
     // });
 
-   blocTest<ProductListCubit, ProductListState>(
-  'emits ProductPaymentSuccess when payment and order complete successfully',
-  build: () {
-    when(() => mockRepo.createPaymentIntent(100.0, 'usd'))
-        .thenAnswer((_) async => intent);
-    when(() => mockStripeService.initPaymentSheet(any()))
-        .thenAnswer((_) async => {});
-    when(() => mockStripeService.presentPaymentSheet())
-        .thenAnswer((_) async => {});
-    when(() => mockOrderCubit.completeOrder(any(), any()))
-        .thenAnswer((_) async => {});
+    blocTest<ProductListCubit, ProductListState>(
+      'emits ProductPaymentSuccess when payment and order complete successfully',
+      build: () {
+        when(() => mockRepo.createPaymentIntent(100.0, 'usd'))
+            .thenAnswer((_) async => intent);
+        when(() => mockStripeService.initPaymentSheet(any()))
+            .thenAnswer((_) async => {});
+        when(() => mockStripeService.presentPaymentSheet())
+            .thenAnswer((_) async => {});
+        when(() => mockOrderCubit.completeOrder(any(), any()))
+            .thenAnswer((_) async => {});
 
-    return ProductListCubit(mockRepo, mockOrderCubit, mockStripeService);
-  },
-  act: (cubit) async {
-    await cubit.makePayment(100.0, sampleProducts, 1);
-  },
-  expect: () => [
-    ProductPaymentSuccess(),
-  ],
-);
-
+        return ProductListCubit(mockRepo, mockOrderCubit, mockStripeService);
+      },
+      act: (cubit) async {
+        await cubit.makePayment(100.0, sampleProducts, 1);
+      },
+      expect: () => [
+        ProductPaymentSuccess(),
+      ],
+    );
 
     blocTest<ProductListCubit, ProductListState>(
       'emits ProductPaymentError when payment fails',
@@ -120,7 +112,8 @@ void main() {
       },
       act: (cubit) => cubit.makePayment(100.0, sampleProducts, 1),
       expect: () => [
-        isA<ProductPaymentError>().having((e) => e.error, 'error', contains('Payment failed')),
+        isA<ProductPaymentError>()
+            .having((e) => e.error, 'error', contains('Payment failed')),
       ],
     );
   });

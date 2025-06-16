@@ -1,4 +1,3 @@
-
 import 'package:auto_route/auto_route.dart';
 import 'package:common/common.dart';
 import 'package:product_listing/domain/entity/product.dart';
@@ -16,9 +15,9 @@ class CartDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   return BlocProvider(
-     create: (_) => injector<ProductListCubit>(),
-      child:   ProductListView(products: products),
+    return BlocProvider(
+      create: (_) => injector<ProductListCubit>(),
+      child: ProductListView(products: products),
     );
   }
 }

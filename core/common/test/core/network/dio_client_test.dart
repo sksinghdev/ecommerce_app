@@ -1,7 +1,7 @@
 import 'package:common/common.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dio/dio.dart';
- 
+
 void main() {
   group('DioClient', () {
     test('returns Dio instance with correct base options', () {

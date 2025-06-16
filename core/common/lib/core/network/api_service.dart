@@ -13,7 +13,8 @@ class ApiService {
     return await dio.post('users', data: userData);
   }
 
-  Future<Response> orderPlacedAfterPayment(Map<String, dynamic> userData) async {
+  Future<Response> orderPlacedAfterPayment(
+      Map<String, dynamic> userData) async {
     return await dio.post('carts', data: userData);
   }
 

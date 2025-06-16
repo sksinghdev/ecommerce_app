@@ -1,7 +1,7 @@
 import 'package:authentication/presentation/widgets/primarty_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
- 
+
 void main() {
   group('PrimaryButton Widget Test', () {
     testWidgets('renders with correct text', (WidgetTester tester) async {

@@ -3,23 +3,25 @@ import 'package:authentication/presentation/page/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
- import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:common/common.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:common/presentation/bloc/auth_cubit.dart';
 import 'package:common/presentation/bloc/auth_state.dart';
- import 'package:bloc_test/bloc_test.dart';
+import 'package:bloc_test/bloc_test.dart';
+
 class MockAuthCubit extends MockCubit<AuthState> implements AuthCubit {}
 
 class FakeRoute extends Fake implements StackRouter {}
+
 final injector = GetIt.instance;
 void main() {
   late MockAuthCubit mockAuthCubit;
 
   setUpAll(() {
-     injector.registerFactory<AuthCubit>(() => mockAuthCubit); 
+    injector.registerFactory<AuthCubit>(() => mockAuthCubit);
     registerFallbackValue(FakeAuthState());
-    registerFallbackValue(FakeRoute()); 
+    registerFallbackValue(FakeRoute());
 
     registerFallbackValue(Unauthenticated());
   });
@@ -33,10 +35,9 @@ void main() {
     // Register the mock
     injector.registerFactory<AuthCubit>(() => mockAuthCubit);
   });
-   tearDown(() async {
+  tearDown(() async {
     await injector.reset();
   });
-
 
   testWidgets('shows CircularProgressIndicator when AuthLoading state',
       (WidgetTester tester) async {
@@ -66,7 +67,8 @@ void main() {
   testWidgets('tapping Login button triggers email login',
       (WidgetTester tester) async {
     when(() => mockAuthCubit.state).thenReturn(AuthInitial());
-    when(() => mockAuthCubit.loginWithEmail('test@email.com', 'password123')).thenAnswer((_) async {});
+    when(() => mockAuthCubit.loginWithEmail('test@email.com', 'password123'))
+        .thenAnswer((_) async {});
 
     await tester.pumpWidget(const MaterialApp(home: LoginPage()));
 
@@ -79,35 +81,33 @@ void main() {
     await tester.pump();
 
     // Verify that loginWithEmail was called
-    verify(() => mockAuthCubit.loginWithEmail('test@email.com', 'password123')).called(1);
+    verify(() => mockAuthCubit.loginWithEmail('test@email.com', 'password123'))
+        .called(1);
   });
 
   testWidgets('tapping Google Sign-In button triggers Google login',
-    (WidgetTester tester) async {
-  when(() => mockAuthCubit.state).thenReturn(AuthInitial());
-  when(() => mockAuthCubit.loginWithGoogle()).thenAnswer((_) async {});
+      (WidgetTester tester) async {
+    when(() => mockAuthCubit.state).thenReturn(AuthInitial());
+    when(() => mockAuthCubit.loginWithGoogle()).thenAnswer((_) async {});
 
-  await tester.pumpWidget(const MaterialApp(home: LoginPage()));
+    await tester.pumpWidget(const MaterialApp(home: LoginPage()));
 
-  await tester.tap(find.text('Sign in with Google'));
-  await tester.pump();
+    await tester.tap(find.text('Sign in with Google'));
+    await tester.pump();
 
-  verify(() => mockAuthCubit.loginWithGoogle()).called(1);
-});
-
-
-  
+    verify(() => mockAuthCubit.loginWithGoogle()).called(1);
+  });
 
   Widget _buildTestableWidget() {
     return MaterialApp.router(
-      routerConfig: AuthRouter().config(), // Replace with your app router if needed
+      routerConfig:
+          AuthRouter().config(), // Replace with your app router if needed
       builder: (context, child) => BlocProvider<AuthCubit>.value(
         value: mockAuthCubit,
         child: child!,
       ),
     );
   }
-
- 
 }
+
 class FakeAuthState extends Fake implements AuthState {}

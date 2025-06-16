@@ -1,10 +1,11 @@
 import 'package:authentication/presentation/widgets/divider_with_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
- 
+
 void main() {
   group('DividerWithText Widget Test', () {
-    testWidgets('renders text and dividers correctly', (WidgetTester tester) async {
+    testWidgets('renders text and dividers correctly',
+        (WidgetTester tester) async {
       const testText = 'OR';
 
       await tester.pumpWidget(

@@ -1,9 +1,7 @@
-
-
 import 'package:authentication/presentation/widgets/auth_input_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
- 
+
 void main() {
   group('AuthInputField Widget Test', () {
     late TextEditingController controller;
@@ -12,7 +10,8 @@ void main() {
       controller = TextEditingController();
     });
 
-    testWidgets('renders correctly with label and icon', (WidgetTester tester) async {
+    testWidgets('renders correctly with label and icon',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -30,7 +29,8 @@ void main() {
       expect(find.byIcon(Icons.email), findsOneWidget);
     });
 
-    testWidgets('shows validation error when empty', (WidgetTester tester) async {
+    testWidgets('shows validation error when empty',
+        (WidgetTester tester) async {
       final formKey = GlobalKey<FormState>();
 
       await tester.pumpWidget(
@@ -55,7 +55,8 @@ void main() {
       expect(find.text('Please enter your Email'), findsOneWidget);
     });
 
-    testWidgets('shows email validation error when email is invalid', (WidgetTester tester) async {
+    testWidgets('shows email validation error when email is invalid',
+        (WidgetTester tester) async {
       final formKey = GlobalKey<FormState>();
       controller.text = 'invalidemail';
 
@@ -80,7 +81,8 @@ void main() {
       expect(find.text('Please enter a valid email address'), findsOneWidget);
     });
 
-    testWidgets('passes validation with valid email', (WidgetTester tester) async {
+    testWidgets('passes validation with valid email',
+        (WidgetTester tester) async {
       final formKey = GlobalKey<FormState>();
       controller.text = 'test@example.com';
 

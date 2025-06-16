@@ -2,7 +2,7 @@ import 'package:common/common.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:dio/dio.dart';
- 
+
 class MockDio extends Mock implements Dio {}
 
 void main() {
@@ -48,7 +48,9 @@ void main() {
     });
 
     test('orderPlacedAfterPayment should call POST /carts with data', () async {
-      final orderData = {'items': [1, 2]};
+      final orderData = {
+        'items': [1, 2]
+      };
       final response = Response(
         data: {'status': 'success'},
         statusCode: 200,

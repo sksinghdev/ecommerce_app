@@ -1,11 +1,8 @@
-
-
 import 'package:product_listing/domain/entity/product.dart';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:auto_route/auto_route.dart';
- 
 
 @RoutePage()
 class OrderSuccessScreen extends StatelessWidget {
@@ -42,11 +39,13 @@ class OrderSuccessScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            const Icon(Icons.check_circle_rounded, color: Colors.green, size: 80),
+            const Icon(Icons.check_circle_rounded,
+                color: Colors.green, size: 80),
             const SizedBox(height: 12),
             Text(
               'Your order was placed successfully!',
-              style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold),
+              style: GoogleFonts.poppins(
+                  fontSize: 22, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
@@ -55,17 +54,16 @@ class OrderSuccessScreen extends StatelessWidget {
               style: GoogleFonts.poppins(fontSize: 16, color: Colors.grey[700]),
             ),
             const SizedBox(height: 24),
-
             _buildOrderSummary(orderId, paymentMethod, total),
-
             const SizedBox(height: 24),
             Align(
               alignment: Alignment.centerLeft,
-              child: Text('Ordered Items', style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600)),
+              child: Text('Ordered Items',
+                  style: GoogleFonts.poppins(
+                      fontSize: 18, fontWeight: FontWeight.w600)),
             ),
             const SizedBox(height: 8),
             ...products.map(_buildProductTile).toList(),
-
             const SizedBox(height: 30),
             Row(
               children: [
@@ -74,11 +72,13 @@ class OrderSuccessScreen extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       backgroundColor: Colors.blue.shade600,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
                     ),
                     icon: const Icon(Icons.home_rounded),
                     label: Text('Home', style: GoogleFonts.poppins()),
-                    onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
+                    onPressed: () =>
+                        Navigator.popUntil(context, (route) => route.isFirst),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -86,7 +86,8 @@ class OrderSuccessScreen extends StatelessWidget {
                   child: OutlinedButton.icon(
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
                     ),
                     icon: const Icon(Icons.local_shipping_outlined),
                     label: Text('Track Order', style: GoogleFonts.poppins()),
@@ -108,10 +109,15 @@ class OrderSuccessScreen extends StatelessWidget {
       child: ListTile(
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(8),
-          child: Image.network(product.image, width: 60, height: 60, fit: BoxFit.cover),
+          child: Image.network(product.image,
+              width: 60, height: 60, fit: BoxFit.cover),
         ),
-        title: Text(product.title, maxLines: 2, overflow: TextOverflow.ellipsis, style: GoogleFonts.poppins()),
-        subtitle: Text("₹${product.price.toStringAsFixed(2)}", style: GoogleFonts.poppins(fontWeight: FontWeight.w600)),
+        title: Text(product.title,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.poppins()),
+        subtitle: Text("₹${product.price.toStringAsFixed(2)}",
+            style: GoogleFonts.poppins(fontWeight: FontWeight.w600)),
         trailing: const Icon(Icons.check_circle_outline, color: Colors.green),
       ),
     );

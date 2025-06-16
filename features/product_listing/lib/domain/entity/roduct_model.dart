@@ -1,8 +1,7 @@
- 
 import 'package:product_listing/domain/entity/product.dart';
 
 class ProductModel extends Product {
-const  ProductModel({
+  const ProductModel({
     required int id,
     required String title,
     required double price,
@@ -20,7 +19,7 @@ const  ProductModel({
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
-      id: json['id'],
+      id: json['id'] ?? 0,
       title: json['title'],
       price: json['price'].toDouble(),
       description: json['description'],

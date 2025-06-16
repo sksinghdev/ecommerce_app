@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:dio/dio.dart';
 import 'package:common/common.dart';
- import 'package:product_listing/domain/entity/product.dart';
+import 'package:product_listing/domain/entity/product.dart';
 
 class MockApiService extends Mock implements ApiService {}
 
@@ -57,7 +57,8 @@ void main() {
           .thenAnswer((_) async => dioResponse);
 
       // Act
-      final result = await repository.placedOrders(userId: 1, products: testProducts);
+      final result =
+          await repository.placedOrders(userId: 1, products: testProducts);
 
       // Assert
       expect(result.isRight(), true);
@@ -70,7 +71,9 @@ void main() {
       );
     });
 
-    test('returns Left(ServerFailure) when Dio response statusCode is not 200/201', () async {
+    test(
+        'returns Left(ServerFailure) when Dio response statusCode is not 200/201',
+        () async {
       final dioResponse = Response(
         statusCode: 500,
         data: {},
@@ -80,7 +83,8 @@ void main() {
       when(() => mockApiService.orderPlacedAfterPayment(any()))
           .thenAnswer((_) async => dioResponse);
 
-      final result = await repository.placedOrders(userId: 1, products: testProducts);
+      final result =
+          await repository.placedOrders(userId: 1, products: testProducts);
 
       expect(result.isLeft(), true);
       result.fold(
@@ -92,10 +96,10 @@ void main() {
     test('throws Exception when Dio throws an error', () async {
       when(() => mockApiService.orderPlacedAfterPayment(any()))
           .thenThrow(DioError(
-            requestOptions: RequestOptions(path: '/orders'),
-            type: DioErrorType.unknown,
-            error: 'Network Error',
-          ));
+        requestOptions: RequestOptions(path: '/orders'),
+        type: DioErrorType.unknown,
+        error: 'Network Error',
+      ));
 
       expect(
         () => repository.placedOrders(userId: 1, products: testProducts),

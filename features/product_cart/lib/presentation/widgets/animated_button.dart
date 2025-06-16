@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AnimatedActionButton extends StatefulWidget {
   final String label;
- final IconData icon;
+  final IconData icon;
   final Future<void> Function() onPressed;
   final Color color;
 
@@ -62,7 +62,8 @@ class _AnimatedActionButtonState extends State<AnimatedActionButton> {
               duration: const Duration(milliseconds: 200),
               child: _isProcessing
                   ? _showIcon
-                      ? Icon(widget.icon, color: Colors.white, key: const ValueKey('icon'))
+                      ? Icon(widget.icon,
+                          color: Colors.white, key: const ValueKey('icon'))
                       : const SizedBox(
                           height: 20,
                           width: 20,

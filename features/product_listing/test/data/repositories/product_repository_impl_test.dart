@@ -4,7 +4,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:common/common.dart'; // For Either, Failure, etc.
 import 'package:product_listing/data/repositories/product_repository_impl.dart';
 
- import 'package:product_listing/domain/entity/product.dart';
+import 'package:product_listing/domain/entity/product.dart';
 import 'package:product_listing/domain/entity/roduct_model.dart';
 import 'package:product_listing/domain/repository/product_repository.dart';
 
