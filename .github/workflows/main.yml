@@ -19,8 +19,8 @@ jobs:
           channel: 'stable'
           architecture: x64
 
-      - name: Install Melos
-        run: dart pub global activate melos
+      - name: Install Melos v2.9.0 Globally
+        run: dart pub global activate melos 2.9.0
 
       - name: Melos Bootstrap
         run: melos bootstrap
